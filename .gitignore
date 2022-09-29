@@ -93,7 +93,7 @@ Thumbs.db
 *.png
 
 # Local JSON files
-*.json
+/dev-data/data/*.json
 
 # Environment Files
 *.env
