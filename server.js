@@ -3,9 +3,7 @@ const mongoose = require('mongoose');
 process.on('uncaughtException', (err) => {
     console.log('UNCAUGHT REJECTION');
     console.log(err.name, err.message);
-    server.close(() => {
-        process.exit(1);
-    });
+    process.exit(1);
 });
 
 const dotenv = require('dotenv');
