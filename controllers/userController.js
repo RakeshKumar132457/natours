@@ -55,18 +55,6 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
     });
 });
 
-// FUNCTION for USERS
-exports.getAllUsers = catchAsync(async (req, res) => {
-    const users = await User.find();
-    res.status(200).json({
-        status: 'success',
-        results: users.length,
-        data: {
-            users,
-        },
-    });
-});
-
 exports.getAllUsers = factory.getAll(User);
 exports.updateUser = factory.updateOne(User);
 exports.deleteUser = factory.deleteOne(User);
