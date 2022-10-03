@@ -129,6 +129,12 @@ tourSchema.virtual('durationWeeks').get(function () {
     return this.duration / 7;
 });
 
+tourSchema.virtual('reviews', {
+    ref: 'Review',
+    foreignField: 'tour',
+    localField: '_id',
+});
+
 tourSchema.pre('save', function (next) {
     this.slug = slugify(this.name, { lower: true });
     next();
@@ -147,6 +153,14 @@ tourSchema.pre('save', async function (next) {
 //tourSchema.pre('find', function (next) {
 tourSchema.pre(/^find/, function (next) {
     this.find({ secretTour: { $ne: true } });
+    next();
+});
+
+tourSchema.pre(/^find/, function (next) {
+    this.populate({
+        path: 'guides',
+        select: '-__v -passwordChangedAt',
+    });
     next();
 });
 
