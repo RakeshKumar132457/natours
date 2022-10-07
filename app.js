@@ -1,3 +1,4 @@
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
@@ -14,7 +15,10 @@ const globalErrorHandler = require('./controllers/errorController');
 
 const app = express();
 
-// GLOBAL MIDDLEWARE
+// Server Side Rendering
+app.set('view engine', 'pug');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Securing HTTP
 app.use(helmet());
@@ -60,7 +64,6 @@ app.use(
 app.use(xss());
 
 // Serving static content
-app.use(express.static(`${__dirname}/public`));
 
 // Test Middleware
 app.use((req, res, next) => {
@@ -68,19 +71,19 @@ app.use((req, res, next) => {
     next();
 });
 
+// API Router
+app.get('/', (req, res) => {
+    res.status(200).render('base', {
+        tour: 'The Forest Hiker',
+        user: 'Random User',
+    });
+});
+
 app.use('/api/v1/tours', tourRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/reviews', reviewRouter);
 
 app.all('*', (req, res, next) => {
-    /* res.status(404).json({
-        status: 'fail',
-        message: `Can't find ${req.originalUrl}`,
-    }); */
-
-    /* const err = new Error(`Can't find ${req.originalUrl}`);
-    err.status = 'fail';
-    err.statusCode = 404; */
     next(new AppError(`Can't find ${req.originalUrl}`, 404));
 });
 
