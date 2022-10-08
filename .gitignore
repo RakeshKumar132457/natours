@@ -97,3 +97,5 @@ Thumbs.db
 
 # Environment Files
 *.env
+
+.cache
