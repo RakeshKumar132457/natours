@@ -77,7 +77,7 @@ app.use(xss());
 // Test Middleware
 app.use((req, res, next) => {
     req.requestedTime = new Date().toISOString();
-    console.log(req.cookies);
+    // console.log(req.cookies);
     next();
 });
 
