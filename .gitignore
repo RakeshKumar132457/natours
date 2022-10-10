@@ -89,8 +89,7 @@ lerna-debug.log
 Thumbs.db
 
 # Images
-*.jpg
-*.png
+
 
 # Local JSON files
 /dev-data/data/*.json
