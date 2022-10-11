@@ -88,13 +88,11 @@ lerna-debug.log
 .DS_Store
 Thumbs.db
 
-# Images
-
-
 # Local JSON files
 /dev-data/data/*.json
 
 # Environment Files
 *.env
 
+# Parcel Cache
 .cache
